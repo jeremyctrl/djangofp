@@ -7,5 +7,9 @@ Simple Django static-asset version probe.
 ## Usage
 
 ```bash
+pipx install djangofp
+```
+
+```bash
 djangofp https://example.com
 ```
