@@ -2,7 +2,7 @@ import argparse
 import hashlib
 import json
 import sys
-from pathlib import Path
+import importlib.resources
 from typing import Tuple, Optional, Any
 
 import requests
@@ -100,16 +100,13 @@ def main():
         default="/static/admin/css/",
         help="Static path (default: /static/admin/css/)",
     )
-    parser.add_argument(
-        "--signatures", default="signatures.json", help="Path to signatures.json DB"
-    )
     args = parser.parse_args()
 
     try:
-        with open(Path(args.signatures), "r") as f:
+        with importlib.resources.open_text("djangofp", "signatures.json") as f:
             db = json.load(f)
     except Exception as e:
-        print(f"[-] error loading {args.signatures}: {e}")
+        print(f"[-] error loading signatures.json: {e}")
         sys.exit(1)
 
     asset_urls = {
