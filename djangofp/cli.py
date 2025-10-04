@@ -102,7 +102,7 @@ def main():
         default="/static/admin/css/",
         help="Static path (default: /static/admin/css/)",
     )
-    parser.add_argument("-v", "--version", action="version", version="%(prog)s 0.1.3")
+    parser.add_argument("-v", "--version", action="version", version="%(prog)s 0.1.4")
     args = parser.parse_args()
 
     try:
