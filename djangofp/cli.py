@@ -1,9 +1,9 @@
 import argparse
 import hashlib
+import importlib.resources
 import json
 import sys
-import importlib.resources
-from typing import Tuple, Optional, Any
+from typing import Any, Optional, Tuple
 
 import requests
 from bs4 import BeautifulSoup
@@ -22,7 +22,6 @@ def triple_key(assets: dict[str, Optional[dict[str, Any]]]) -> Tuple[str, list[s
         else:
             parts.append("null")
     return sha256("||".join(parts).encode()), parts
-
 
 
 def build_asset_url(base_url: str, static_path: str, asset_name: str) -> str:
@@ -49,7 +48,9 @@ def discover_assets(
     for key in asset_keys:
         for link in links:
             if link and f"/{key}" in link:
-                found[key] = link if link.startswith("http") else f"{base_url.rstrip('/')}{link}"
+                found[key] = (
+                    link if link.startswith("http") else f"{base_url.rstrip('/')}{link}"
+                )
                 break
     return found
 
@@ -66,6 +67,7 @@ def fetch_asset(key: str, url: str) -> Optional[dict[str, str | int]]:
     sig = {"size": len(content), "sha256": sha256(content)}
     print(f"[+] {key}: size={sig['size']} sha256={sig['sha256']}")
     return sig
+
 
 def match_signatures(
     signatures: dict[str, Optional[dict[str, Any]]], db: dict[str, Any]
@@ -100,6 +102,7 @@ def main():
         default="/static/admin/css/",
         help="Static path (default: /static/admin/css/)",
     )
+    parser.add_argument("-v", "--version", action="version", version="%(prog)s 0.1.3")
     args = parser.parse_args()
 
     try:
