@@ -1,0 +1,13 @@
+[project]
+name = "djangofp"
+version = "0.1.0"
+description = "Simple Django static-asset version probe"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "bs4>=0.0.2",
+    "requests>=2.32.5",
+]
+
+[project.scripts]
+djangofp = "djangofp.cli:main"
