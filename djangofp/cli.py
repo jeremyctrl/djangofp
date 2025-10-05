@@ -114,7 +114,7 @@ def main():
 
     asset_urls = {
         key: build_asset_url(args.url, args.static_path, f"{key}.css")
-        for key in ("base", "forms", "dashboard")
+        for key in ("base", "forms", "dashboard", "responsive")
     }
     signatures = {k: fetch_asset(k, u) for k, u in asset_urls.items()}
 
