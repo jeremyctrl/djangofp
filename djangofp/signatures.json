@@ -1,5 +1,5 @@
 {
-  "201916e57ae3cbf576e5765e964c86195c89f4f9535f874792a76264b4cd4815": {
+  "40ba1dab2819f04dc8b95cf66dfe2e652af5d1f913386d8b65d708791123869c": {
     "versions": [
       "4.1",
       "4.1.1",
@@ -20,7 +20,7 @@
       "0f30cc50bd40fe5025f2c5fb6677ef751a3c04dd96ae68cb3ffe84bbc977bd4f/20344",
       "83a192925f7479f2b383d6112061933dcf86fbe8c75e9072bb80b9bbe92d81b1/8944",
       "8b639c0d36b547f6cee9a05367aebe6919535e5d25e2c8de1df6ac52b7f38ddd/380",
-      "null"
+      "27bbd6f4aefbafdf44dd324f0ef17c22279f94e31454ccbbb574463b64fb8ccc/18854"
     ],
     "assets": {
       "base": {
@@ -35,7 +35,10 @@
         "sha256": "8b639c0d36b547f6cee9a05367aebe6919535e5d25e2c8de1df6ac52b7f38ddd",
         "size": 380
       },
-      "responsive": null
+      "responsive": {
+        "sha256": "27bbd6f4aefbafdf44dd324f0ef17c22279f94e31454ccbbb574463b64fb8ccc",
+        "size": 18854
+      }
     }
   },
   "ffe0160676870eea2161c880988cbda046030659ca6c3e27701c9daaf26e33fa": {
