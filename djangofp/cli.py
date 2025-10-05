@@ -13,9 +13,9 @@ def sha256(b: bytes) -> str:
     return hashlib.sha256(b).hexdigest()
 
 
-def triple_key(assets: dict[str, Optional[dict[str, Any]]]) -> Tuple[str, list[str]]:
+def key_hash(assets: dict[str, Optional[dict[str, Any]]]) -> Tuple[str, list[str]]:
     parts = []
-    for key in ("base", "forms", "dashboard"):
+    for key in ("base", "forms", "dashboard", "responsive"):
         asset = assets.get(key)
         if asset:
             parts.append(f"{asset['sha256']}/{asset['size']}")
@@ -31,7 +31,7 @@ def build_asset_url(base_url: str, static_path: str, asset_name: str) -> str:
 
 
 def discover_assets(
-    base_url: str, asset_keys: Tuple[str, ...] = ("base", "forms", "dashboard")
+    base_url: str, asset_keys: Tuple[str, ...] = ("base", "forms", "dashboard", "responsive")
 ) -> dict[str, str]:
     admin_url = f"{base_url.rstrip('/')}/admin/login/"
     try:
@@ -72,7 +72,7 @@ def fetch_asset(key: str, url: str) -> Optional[dict[str, str | int]]:
 def match_signatures(
     signatures: dict[str, Optional[dict[str, Any]]], db: dict[str, Any]
 ) -> Tuple[Any, Optional[str], Optional[str]]:
-    combo_hash, _ = triple_key(signatures)
+    combo_hash, _ = key_hash(signatures)
     if combo_hash in db:
         return db[combo_hash], "full", combo_hash
 
