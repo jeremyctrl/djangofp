@@ -31,11 +31,13 @@ def build_asset_url(base_url: str, static_path: str, asset_name: str) -> str:
 
 
 def discover_assets(
-    base_url: str, asset_keys: Tuple[str, ...] = ("base", "forms", "dashboard", "responsive")
+    base_url: str,
+    user_agent: str,
+    asset_keys: Tuple[str, ...] = ("base", "forms", "dashboard", "responsive"),
 ) -> dict[str, str]:
     admin_url = f"{base_url.rstrip('/')}/admin/login/"
     try:
-        resp = requests.get(admin_url, timeout=10)
+        resp = requests.get(admin_url, timeout=10, headers={"User-Agent": user_agent})
         resp.raise_for_status()
     except requests.RequestException as e:
         print(f"[-] error fetching {admin_url}: {e}")
@@ -55,9 +57,9 @@ def discover_assets(
     return found
 
 
-def fetch_asset(key: str, url: str) -> Optional[dict[str, str | int]]:
+def fetch_asset(key: str, url: str, user_agent: str) -> Optional[dict[str, str | int]]:
     try:
-        resp = requests.get(url, timeout=10)
+        resp = requests.get(url, timeout=10, headers={"User-Agent": user_agent})
         resp.raise_for_status()
     except requests.RequestException as e:
         print(f"[-] {key}: request error {e}")
@@ -96,11 +98,19 @@ def main():
         prog="djangofp",
         description="Simple Django static-asset version probe",
     )
-    parser.add_argument("url", help="Base URL, e.g. https://example.com")
+    parser.add_argument("url", type=str, help="Base URL, e.g. https://example.com")
     parser.add_argument(
         "--static-path",
+        type=str,
         default="/static/admin/css/",
         help="Static path (default: /static/admin/css/)",
+    )
+    parser.add_argument(
+        "-ua",
+        "--user-agent",
+        type=str,
+        default="djangofp/0.1",
+        help="Custom User-Agent string to include in HTTP requests (default: 'djangofp/0.1')",
     )
     parser.add_argument("-v", "--version", action="version", version="%(prog)s 0.1.7")
     args = parser.parse_args()
@@ -116,12 +126,17 @@ def main():
         key: build_asset_url(args.url, args.static_path, f"{key}.css")
         for key in ("base", "forms", "dashboard", "responsive")
     }
-    signatures = {k: fetch_asset(k, u) for k, u in asset_urls.items()}
+    signatures = {
+        k: fetch_asset(k, u, user_agent=args.user_agent) for k, u in asset_urls.items()
+    }
 
     if not any(signatures.values()):
         print("[*] static-path lookup failed, falling back to discovery mode...")
-        discovered = discover_assets(args.url)
-        signatures = {key: fetch_asset(key, url) for key, url in discovered.items()}
+        discovered = discover_assets(args.url, user_agent=args.user_agent)
+        signatures = {
+            key: fetch_asset(key, url, user_agent=args.user_agent)
+            for key, url in discovered.items()
+        }
 
     match, match_type, combo_hash = match_signatures(signatures, db)
     if match_type == "full":
