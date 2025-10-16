@@ -106,13 +106,13 @@ def main():
         help="Static path (default: /static/admin/css/)",
     )
     parser.add_argument(
-        "-ua",
+        "-A",
         "--user-agent",
         type=str,
         default="djangofp/0.1",
         help="Custom User-Agent string to include in HTTP requests (default: 'djangofp/0.1')",
     )
-    parser.add_argument("-v", "--version", action="version", version="%(prog)s 0.1.7")
+    parser.add_argument("-v", "--version", action="version", version="%(prog)s 0.2.1")
     args = parser.parse_args()
 
     try:
