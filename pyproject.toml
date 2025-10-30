@@ -1,6 +1,6 @@
 [project]
 name = "djangofp"
-version = "0.2.1"
+version = "0.2.2"
 description = "Simple Django static-asset version probe"
 readme = "README.md"
 requires-python = ">=3.13"
@@ -8,6 +8,11 @@ dependencies = [
     "bs4>=0.0.2",
     "requests>=2.32.5",
 ]
+
+[project.urls]
+Homepage = "https://github.com/jeremyctrl/whatenc"
+Repository = "https://github.com/jeremyctrl/whatenc"
+Issues = "https://github.com/jeremyctrl/whatenc/issues"
 
 [project.optional-dependencies]
 dev = [
