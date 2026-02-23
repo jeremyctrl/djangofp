@@ -10,9 +10,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/jeremyctrl/whatenc"
-Repository = "https://github.com/jeremyctrl/whatenc"
-Issues = "https://github.com/jeremyctrl/whatenc/issues"
+Homepage = "https://github.com/jeremyctrl/djangofp"
+Repository = "https://github.com/jeremyctrl/djangofp"
+Issues = "https://github.com/jeremyctrl/djangofp/issues"
 
 [project.optional-dependencies]
 dev = [
