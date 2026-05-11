@@ -112,7 +112,7 @@ def main():
         default="djangofp/0.2",
         help="Custom User-Agent string to include in HTTP requests (default: 'djangofp/0.2')",
     )
-    parser.add_argument("-v", "--version", action="version", version="%(prog)s 0.3.0")
+    parser.add_argument("-v", "--version", action="version", version="%(prog)s 0.4.0")
     args = parser.parse_args()
 
     try:
