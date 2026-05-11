@@ -17,7 +17,7 @@ This helps identify the Django version, or narrow down candidates, based on uniq
 
 `djangofp` requests the Django admin CSS files from the target site, computes SHA256 and size fingerprints, and compares them against a built-in database of known Django releases.
 
-The fingerprint database currently covers Django versions **4.1.x through 6.0.2** (latest release).  
+The fingerprint database currently covers Django versions **4.1.x through 6.0.5** (latest release).  
 
 > Admin CSS assets used for matching were introduced in Django 4.1 and do not exist in earlier versions.
 
